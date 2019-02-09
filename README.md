@@ -1,2 +1,13 @@
 # workshop-weather
-Weather CLI utility
+
+## Setup
+
+```sh
+$ make install
+```
+
+## Run tests
+
+```sh
+$ make test
+```
