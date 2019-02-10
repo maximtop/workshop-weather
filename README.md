@@ -1,4 +1,4 @@
-# workshop-weather
+# workshop-Weather
 
 ## Setup
 

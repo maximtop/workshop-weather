@@ -1,4 +1,5 @@
 import 'source-map-support/register';
-import weather from './weather';
+import Weather from './Weather';
+require('dotenv').config();
 
-export default weather;
+export default Weather;
