@@ -24,3 +24,6 @@ extends:
 
 rules:
   no-console: 0
+  camelcase: off
+  class-methods-use-this: off
+  import/prefer-default-export: off

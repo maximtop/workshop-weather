@@ -1,5 +1,3 @@
-import getProvider from './providers';
-
 class Weather {
   constructor(api) {
     this.api = api;

@@ -1,14 +1,16 @@
-import { request, validateCityName } from '../helpers';
+import { validateCityName } from '../helpers';
+import WeatherService from './WeatherService';
 
-class MetaWeather {
-  constructor() {
+class MetaWeather extends WeatherService {
+  constructor(httpClient) {
+    super(httpClient);
     this.locationSearchUrl = 'https://www.metaweather.com/api/location/search/?query=';
     this.locationWeatherUrl = 'https://www.metaweather.com/api/location';
   }
 
   async getWoeid(searchQuery) {
     const woeidUrl = this.locationSearchUrl + searchQuery;
-    const { data } = await request(woeidUrl);
+    const { data } = await this.makeRequest(woeidUrl);
     if (data.length < 1) {
       throw Error(`We couldn't find any city in the weather provider database corresponding to provided query: ${searchQuery}`);
     }
@@ -16,19 +18,13 @@ class MetaWeather {
     const foundCityData = data[0];
     const { woeid } = foundCityData;
     return woeid;
-  };
+  }
 
   async getWeatherByCity(city) {
-    // TODO how to make it better???
-    let validatedCityName;
-    try {
-      validatedCityName = validateCityName(city);
-    } catch (e) {
-      return Promise.reject(e);
-    }
+    const validatedCityName = validateCityName(city);
     const woeid = await this.getWoeid(validatedCityName);
     const weatherUrl = `${this.locationWeatherUrl}/${woeid}/`;
-    const { data } = await request(weatherUrl);
+    const { data } = await this.makeRequest(weatherUrl);
     const { consolidated_weather } = data;
     const {
       weather_state_name,

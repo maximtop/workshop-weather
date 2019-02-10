@@ -1,22 +1,17 @@
-import { request, validateCityName } from '../helpers';
+import { validateCityName } from '../helpers';
+import WeatherService from './WeatherService';
 
-class OpenWeatherMap {
-  constructor() {
+class OpenWeatherMap extends WeatherService {
+  constructor(httpClient) {
+    super(httpClient);
     this.searchUrl = 'http://api.openweathermap.org/data/2.5/weather?q=';
     this.apiKey = process.env.OPEN_WEATHER_API_KEY;
   }
 
   async getWeatherByCity(city) {
-    // TODO how to make it better???
-    let validatedCityName;
-    try {
-      validatedCityName = validateCityName(city);
-    } catch (e) {
-      return Promise.reject(e);
-    }
+    const validatedCityName = validateCityName(city);
     const weatherUrl = `${this.searchUrl}${validatedCityName}&appid=${this.apiKey}&units=metric`;
-    console.log(weatherUrl);
-    const { data } = await request(weatherUrl);
+    const { data } = await this.makeRequest(weatherUrl);
     const {
       weather: [{ main: weather_state_name }],
       main: { temp_min: min_temp, temp_max: max_temp },

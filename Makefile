@@ -1,7 +1,7 @@
 install: install-deps install-flow-typed
 
 run:
-	npx babel-node -- 'src/bin/weather.js' -p openweathermap miami
+	npx babel-node -- 'src/bin/weather.js' -p metaweather miami
 
 install-deps:
 	npm install
