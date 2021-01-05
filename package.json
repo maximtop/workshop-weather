@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/maximtop/workshop-weather#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "commander": "^2.19.0",
     "dotenv": "^6.2.0",
     "gulp": "^4.0.0",
